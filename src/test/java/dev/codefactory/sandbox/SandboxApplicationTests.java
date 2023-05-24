@@ -12,8 +12,8 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @SpringBootTest
 class SandboxApplicationTests {
 
-	@Container
-	public static final PostgreSQLContainer<?> db = new PostgreSQLContainer("postgres:15")
+	@Container // TODO there should be a better way
+	public static final PostgreSQLContainer<?> db = new PostgreSQLContainer<>("postgres:15")
 			.withDatabaseName("sandbox")
 			.withUsername("sandbox")
 			.withPassword("sandbox");
