@@ -14,9 +14,9 @@ class SandboxApplicationTests {
 
 	@Container // TODO there should be a better way
 	public static final PostgreSQLContainer<?> db = new PostgreSQLContainer<>("postgres:15")
-			.withDatabaseName("sandbox")
-			.withUsername("sandbox")
-			.withPassword("sandbox");
+			.withDatabaseName("sandbox_test")
+			.withUsername("sandbox_test")
+			.withPassword("sandbox_test");
 
 	@DynamicPropertySource
 	static void setProperties(DynamicPropertyRegistry registry) {
