@@ -23,7 +23,7 @@ public class CarRental {
     public static void main(String[] args) throws Exception {
         SimpleDateFormat sdf = new SimpleDateFormat("d/M/y H:m");
 
-        ArrayList<RentalTime> rentalTimes = new ArrayList<RentalTime>();
+        ArrayList<RentalTime> rentalTimes = new ArrayList<>();
         rentalTimes.add(new RentalTime(sdf.parse("03/05/2020 19:00"), sdf.parse("03/05/2020 20:30")));
         rentalTimes.add(new RentalTime(sdf.parse("03/05/2020 22:10"), sdf.parse("03/05/2020 22:30")));
         rentalTimes.add(new RentalTime(sdf.parse("03/05/2020 20:30"), sdf.parse("03/05/2020 22:00")));
@@ -33,7 +33,8 @@ public class CarRental {
 }
 
 class RentalTime {
-    private Date start, end;
+    private final Date start;
+    private final Date end;
 
     public RentalTime(Date start, Date end) {
         this.start = start;
@@ -49,14 +50,10 @@ class RentalTime {
     }
 
     public boolean conflictsWith(RentalTime other) {
-        if (other.start.after(start) && other.start.before(end)) {
+        if (other.getStart().after(start) && other.getStart().before(end)) {
             return true;
         }
 
-        if (other.end.after(start) && other.end.before(end)) {
-            return true;
-        }
-
-        return false;
+        return other.getEnd().after(start) && other.getEnd().before(end);
     }
 }
