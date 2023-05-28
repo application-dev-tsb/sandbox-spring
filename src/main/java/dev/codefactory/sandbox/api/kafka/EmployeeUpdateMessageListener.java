@@ -1,5 +1,6 @@
 package dev.codefactory.sandbox.api.kafka;
 
+import dev.codefactory.sandbox.avro.EmployeeUpdate;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
@@ -7,7 +8,7 @@ import org.springframework.stereotype.Component;
 public class EmployeeUpdateMessageListener {
 
     @KafkaListener(topics = "employee-update", groupId = "employee")
-    public void listen(String message) {
-        System.out.println("Received message: " + message);
+    public void listen(EmployeeUpdate employeeUpdate) {
+        System.out.println("Received Employee Update: " + employeeUpdate);
     }
 }
