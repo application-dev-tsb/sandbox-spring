@@ -1,14 +1,20 @@
+buildscript {
+	repositories {
+		gradlePluginPortal()
+		maven {
+			url = "https://packages.confluent.io/maven/"
+		}
+	}
+}
+
 plugins {
 	id 'java'
 	id 'groovy'
 	id 'org.springframework.boot' version '3.1.0'
 	id 'io.spring.dependency-management' version '1.1.0'
 	id "com.github.davidmc24.gradle.plugin.avro" version "1.7.1"
+	id "com.github.imflog.kafka-schema-registry-gradle-plugin" version "1.11.0"
 }
-
-group = 'dev.codefactory'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '19'
 
 configurations {
 	compileOnly {
@@ -18,10 +24,15 @@ configurations {
 
 repositories {
 	mavenCentral()
+	maven {
+		name = "confluent"
+		url = "https://packages.confluent.io/maven/"
+	}
 }
 
 dependencies {
-	implementation "org.apache.avro:avro:1.11.1"
+	implementation "io.confluent:kafka-avro-serializer:${confluentVersion}"
+	implementation 'org.apache.avro:avro:1.11.1'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.kafka:spring-kafka'

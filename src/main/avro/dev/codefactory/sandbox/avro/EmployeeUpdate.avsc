@@ -1,7 +1,8 @@
 {
-    "name": "EmployeeUpdate",
-    "namespace": "dev.codefactory.sandbox.avro",
     "type": "record",
+    "namespace": "dev.codefactory.sandbox.avro",
+    "name": "EmployeeUpdate",
+    "version": "1",
     "fields" : [
         {
             "name": "id",
