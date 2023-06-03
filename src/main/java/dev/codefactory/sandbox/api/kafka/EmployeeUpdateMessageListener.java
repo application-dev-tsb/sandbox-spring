@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class EmployeeUpdateMessageListener {
 
-    @KafkaListener(topics = "employee-update", groupId = "employee")
+    @KafkaListener(topics = "employee-update", groupId = "sandbox")
     public void listen(EmployeeUpdate employeeUpdate) {
         System.out.println("Received Employee Update: " + employeeUpdate);
     }
