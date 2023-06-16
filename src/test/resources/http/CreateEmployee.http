@@ -1,0 +1,6 @@
+POST {{BASE_URI}}/employees
+Content-Type: application/json
+
+{
+ "name": "John Doe"
+}
