@@ -14,7 +14,7 @@ public class EmployeeUpdateMessageListener {
             topics = "${sandbox.kafka.employee-update.topic}",
             groupId = "${sandbox.kafka.employee-update.group-id}")
     public void listen(
-            @Header(KafkaHeaders.KEY) String key,
+            @Header(KafkaHeaders.RECEIVED_KEY) String key,
             @Payload EmployeeUpdate employeeUpdate
     ) {
         System.out.println("Received Employee Update: [" + key + "] " + employeeUpdate);
