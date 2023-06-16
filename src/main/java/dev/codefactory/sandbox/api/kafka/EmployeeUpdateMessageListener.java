@@ -10,7 +10,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class EmployeeUpdateMessageListener {
 
-    @KafkaListener(topics = "employee-update", groupId = "sandbox")
+    @KafkaListener(
+            topics = "${sandbox.kafka.employee-update.topic}",
+            groupId = "${sandbox.kafka.employee-update.group-id}")
     public void listen(
             @Header(KafkaHeaders.KEY) String key,
             @Payload EmployeeUpdate employeeUpdate
