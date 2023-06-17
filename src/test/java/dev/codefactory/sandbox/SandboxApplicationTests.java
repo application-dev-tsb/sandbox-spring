@@ -1,32 +1,36 @@
 package dev.codefactory.sandbox;
 
+import dev.codefactory.sandbox.api.rest.EmployeeRestController;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @Testcontainers
 @SpringBootTest
 class SandboxApplicationTests {
 
-	@Container // TODO there should be a better way
+	@Container
+	@ServiceConnection
 	public static final PostgreSQLContainer<?> db = new PostgreSQLContainer<>("postgres:15")
 			.withDatabaseName("sandbox_test")
 			.withUsername("sandbox_test")
 			.withPassword("sandbox_test");
 
-	@DynamicPropertySource
-	static void setProperties(DynamicPropertyRegistry registry) {
-		registry.add("spring.datasource.url", db::getJdbcUrl);
-		registry.add("spring.datasource.username", db::getUsername);
-		registry.add("spring.datasource.password", db::getPassword);
-	}
+	@Autowired
+	EmployeeRestController controller;
 
+	/**
+	 * smoke test to check if every layer is wired up correctly
+	 */
 	@Test
 	void contextLoads() {
+		assertNotNull(controller);
 	}
 
 }

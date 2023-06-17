@@ -1,6 +1,6 @@
 package dev.codefactory.sandbox.api.kafka;
 
-import dev.codefactory.sandbox.avro.EmployeeUpdate;
+import dev.codefactory.sandbox.avro.event.EmployeeUpdate;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.KafkaHeaders;
