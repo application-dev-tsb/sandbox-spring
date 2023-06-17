@@ -21,3 +21,4 @@ public class KafkaProducerConfiguration {
         return new KafkaTemplate<>(new DefaultKafkaProducerFactory<>(kafkaProperties.buildProducerProperties()));
     }
 }
+// TODO remove this after writing integration tests
