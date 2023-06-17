@@ -1,6 +1,6 @@
 package dev.codefactory.sandbox.config;
 
-import dev.codefactory.sandbox.avro.EmployeeUpdate;
+import dev.codefactory.sandbox.avro.event.EmployeeUpdate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

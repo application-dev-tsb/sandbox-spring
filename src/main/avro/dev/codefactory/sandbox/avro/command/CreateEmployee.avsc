@@ -1,0 +1,12 @@
+{
+  "type": "record",
+  "namespace": "dev.codefactory.sandbox.avro.command",
+  "name": "CreateEmployee",
+  "version": "1",
+  "fields" : [
+    {
+      "name": "name",
+      "type": "string"
+    }
+  ]
+}

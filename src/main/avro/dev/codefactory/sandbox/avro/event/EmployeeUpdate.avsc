@@ -1,6 +1,6 @@
 {
     "type": "record",
-    "namespace": "dev.codefactory.sandbox.avro",
+    "namespace": "dev.codefactory.sandbox.avro.event",
     "name": "EmployeeUpdate",
     "version": "1",
     "fields" : [

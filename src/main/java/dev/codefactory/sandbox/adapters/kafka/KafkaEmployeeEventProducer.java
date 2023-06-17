@@ -1,6 +1,6 @@
 package dev.codefactory.sandbox.adapters.kafka;
 
-import dev.codefactory.sandbox.avro.EmployeeUpdate;
+import dev.codefactory.sandbox.avro.event.EmployeeUpdate;
 import dev.codefactory.sandbox.config.SandboxKafkaProperties;
 import dev.codefactory.sandbox.core.domain.Employee;
 import dev.codefactory.sandbox.core.port.EmployeeEventProducer;
