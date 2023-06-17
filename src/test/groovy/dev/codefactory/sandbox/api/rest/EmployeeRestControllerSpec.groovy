@@ -1,12 +1,14 @@
 package dev.codefactory.sandbox.api.rest
 
-
+import dev.codefactory.sandbox.core.domain.Employee
 import dev.codefactory.sandbox.core.usecase.CreateEmployeeUseCase
+import org.spockframework.spring.SpringBean
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
-import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.test.web.servlet.MockMvc
 import spock.lang.Specification
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 
 @WebMvcTest
 class EmployeeRestControllerSpec extends Specification {
@@ -14,8 +16,8 @@ class EmployeeRestControllerSpec extends Specification {
     @Autowired
     MockMvc mockMvc
 
-    @MockBean
-    CreateEmployeeUseCase mockUseCase
+    @SpringBean
+    CreateEmployeeUseCase mockUseCase = Mock()
 
     def "should convert the POST request"() {
         given:
@@ -25,18 +27,18 @@ class EmployeeRestControllerSpec extends Specification {
             }
         """
 
+        and:
+        Employee expected = Employee.builder().name("John Doe").build()
+
         when:
-        String responseBody = mockMvc.perform {
+        mockMvc.perform {
             post("/employees")
-                .contentType("application/json")
-                .content(body)
-        }.andDo { print() }
-            .andReturn()
+                    .contentType("application/json")
+                    .content(body)
+                    .buildRequest(it)
+        }
 
         then:
-        1 * mockUseCase.invoke(any())
-
-        and:
-        responseBody == "Hello John Doe"
+        1 * mockUseCase.invoke(expected)
     }
 }
