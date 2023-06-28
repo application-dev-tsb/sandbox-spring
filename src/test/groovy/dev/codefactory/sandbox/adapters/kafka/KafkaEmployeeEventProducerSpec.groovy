@@ -1,6 +1,6 @@
 package dev.codefactory.sandbox.adapters.kafka
 
-import dev.codefactory.sandbox.SandboxApplication
+
 import dev.codefactory.sandbox.core.domain.Employee
 import dev.codefactory.sandbox.core.port.EmployeeEventProducer
 import dev.codefactory.sandbox.test.IntegrationTestConfiguration
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component
 import spock.lang.Specification
 import spock.util.concurrent.PollingConditions
 
-@SpringBootTest(classes = [IntegrationTestConfiguration.class, SandboxApplication.class])
+@SpringBootTest(classes = IntegrationTestConfiguration.class)
 class KafkaEmployeeEventProducerSpec extends Specification {
 
     @Autowired

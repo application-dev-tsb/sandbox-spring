@@ -1,8 +1,10 @@
 package dev.codefactory.sandbox.test;
 
+import dev.codefactory.sandbox.SandboxApplication;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.testcontainers.containers.KafkaContainer;
 import org.testcontainers.containers.Network;
 import org.testcontainers.containers.PostgreSQLContainer;
@@ -12,6 +14,7 @@ import java.time.Duration;
 import static org.testcontainers.utility.DockerImageName.parse;
 
 @Configuration
+@Import(SandboxApplication.class)
 public class IntegrationTestConfiguration {
 
     private static final String CONFLUENT_KAFKA_VERSION = "7.4.0";
