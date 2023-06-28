@@ -22,7 +22,7 @@ class KafkaEmployeeEventProducerSpec extends Specification {
 
     PollingConditions waitUntil = new PollingConditions(initialDelay: 0.5, timeout: 5)
 
-    def "producer should be wired"() {
+    def 'producer should be wired'() {
         expect:
         producer != null
 
@@ -30,15 +30,18 @@ class KafkaEmployeeEventProducerSpec extends Specification {
         producer instanceof KafkaEmployeeEventProducer
     }
 
-    def "should send message to the topic"() {
+    def 'should send message to the topic'() {
         given:
-        def event = Employee.builder().name("Test").build()
+        def event = Employee.builder()
+                .id("test0001")
+                .name('Test')
+                .build()
 
         when:
         producer.sendEmployeeUpdate(event)
 
         then:
-        waitUntil.eventually {
+        waitUntil eventually {
             consumer.hasReceivedEvents()
         }
 
@@ -47,10 +50,12 @@ class KafkaEmployeeEventProducerSpec extends Specification {
     }
 
     @Component
-    class TestConsumer {
+    static class TestConsumer {
         def messages = []
 
-        @KafkaListener(topics = "employees")
+        @KafkaListener(
+                topics = '${sandbox.kafka.employee-update.topic}',
+                groupId = '${sandbox.kafka.employee-update.group-id}')
         void listen(Object event) {
             messages << event
         }
