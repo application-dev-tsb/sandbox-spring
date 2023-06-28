@@ -4,12 +4,22 @@ import org.springframework.boot.testcontainers.service.connection.ServiceConnect
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.testcontainers.containers.KafkaContainer;
+import org.testcontainers.containers.Network;
 import org.testcontainers.containers.PostgreSQLContainer;
+
+import java.time.Duration;
 
 import static org.testcontainers.utility.DockerImageName.parse;
 
 @Configuration
 public class IntegrationTestConfiguration {
+
+    private static final String CONFLUENT_KAFKA_VERSION = "7.4.0";
+
+    @Bean
+    Network network() {
+        return Network.newNetwork();
+    }
 
     @Bean
     @ServiceConnection
@@ -20,19 +30,17 @@ public class IntegrationTestConfiguration {
     @Bean
     @ServiceConnection
     KafkaContainer kafkaContainer() {
-        return new KafkaContainer(parse("confluentinc/cp-kafka:7.4.0"));
+        return new KafkaContainer(parse("confluentinc/cp-kafka:" + CONFLUENT_KAFKA_VERSION))
+                .withNetwork(network())
+                .withNetworkAliases("kafka");
     }
 
-    // TODO figure out how to add a custom container to the test context
-//    @Bean
-//    GenericContainer<?> kafkaSchemaRegistry() {
-//        Map<String, String> env = Map.of(
-//                "SCHEMA_REGISTRY_HOST_NAME", "schema_registry",
-//                "SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL", "schema_registry",
-//                "SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS", "schema_registry",
-//                "SCHEMA_REGISTRY_ACCESS_CONTROL_ALLOW_ORIGIN", "schema_registry"
-//        );
-//        return new GenericContainer<>(parse("confluentinc/cp-schema-registry:7.4.0")).withEnv(env);
-//    }
+    @Bean
+    KafkaSchemaRegistryContainer kafkaSchemaRegistry() {
+        return new KafkaSchemaRegistryContainer(parse("confluentinc/cp-schema-registry:" + CONFLUENT_KAFKA_VERSION))
+                .dependsOn(kafkaContainer())
+                .withStartupTimeout(Duration.ofSeconds(100))
+                .withNetwork(network());
+    }
 
 }
