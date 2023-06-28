@@ -39,8 +39,7 @@ public class IntegrationTestConfiguration {
     KafkaSchemaRegistryContainer kafkaSchemaRegistry() {
         return new KafkaSchemaRegistryContainer(parse("confluentinc/cp-schema-registry:" + CONFLUENT_KAFKA_VERSION))
                 .dependsOn(kafkaContainer())
-                .withStartupTimeout(Duration.ofSeconds(100))
+                .withStartupTimeout(Duration.ofSeconds(10))
                 .withNetwork(network());
     }
-
 }

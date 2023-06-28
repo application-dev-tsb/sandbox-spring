@@ -1,5 +1,6 @@
 package dev.codefactory.sandbox.test;
 
+import com.github.dockerjava.api.command.InspectContainerResponse;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.utility.DockerImageName;
 
@@ -17,5 +18,14 @@ public class KafkaSchemaRegistryContainer extends GenericContainer<KafkaSchemaRe
         withEnv("SCHEMA_REGISTRY_HOST_NAME", KAFKA_SCHEMA_REGISTRY_HOST);
         withNetworkAliases(KAFKA_SCHEMA_REGISTRY_HOST);
         withExposedPorts(KAFKA_SCHEMA_REGISTRY_PORT);
+    }
+
+    public String getKafkaSchemaRegistryHost() {
+        return "http://localhost:%s".formatted(getMappedPort(KAFKA_SCHEMA_REGISTRY_PORT));
+    }
+
+    @Override
+    protected void containerIsStarted(InspectContainerResponse containerInfo) {
+        System.setProperty("spring.kafka.properties.schema.registry.url", getKafkaSchemaRegistryHost());
     }
 }

@@ -41,7 +41,7 @@ class KafkaEmployeeEventProducerSpec extends Specification {
         producer.sendEmployeeUpdate(event)
 
         then:
-        waitUntil eventually {
+        waitUntil.eventually {
             consumer.hasReceivedEvents()
         }
 
