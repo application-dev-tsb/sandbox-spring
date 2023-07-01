@@ -6,6 +6,7 @@ plugins {
 	id 'org.graalvm.buildtools.native' version '0.9.20'
 	id "com.github.davidmc24.gradle.plugin.avro" version "1.7.1"
 	id "com.github.imflog.kafka-schema-registry-gradle-plugin" version "1.11.0"
+	id 'dev.codefactory.sandbox.build.greeting'
 }
 
 configurations {
