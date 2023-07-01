@@ -27,5 +27,7 @@ public class KafkaSchemaRegistryContainer extends GenericContainer<KafkaSchemaRe
     @Override
     protected void containerIsStarted(InspectContainerResponse containerInfo) {
         System.setProperty("spring.kafka.properties.schema.registry.url", getKafkaSchemaRegistryHost());
+        System.setProperty("spring.kafka.producer.properties.schema.registry.url", getKafkaSchemaRegistryHost());
+        System.setProperty("spring.kafka.consumer.properties.schema.registry.url", getKafkaSchemaRegistryHost());
     }
 }

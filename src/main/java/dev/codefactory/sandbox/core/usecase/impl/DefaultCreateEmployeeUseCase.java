@@ -20,4 +20,9 @@ public class DefaultCreateEmployeeUseCase implements CreateEmployeeUseCase {
         employeeEventProducer.sendEmployeeUpdate(newEmployee);
         return newEmployee;
     }
+
+    @Override
+    public void confirmEmployeeUpdate(Employee employee) {
+
+    }
 }

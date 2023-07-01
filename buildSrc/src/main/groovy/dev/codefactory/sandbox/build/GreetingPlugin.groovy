@@ -16,6 +16,7 @@ class GreetingPlugin implements Plugin<Project> {
     }
 
     static class Greeting extends DefaultTask {
+
         @TaskAction
         def greet() {
             println 'Hello from GreetingPlugin'
